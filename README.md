@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 个人博客：[CSDN博客-满分观察网友z](https://douglas.blog.csdn.net)
 
 演示地址：[哔哩哔哩-满分观察网友z](https://www.bilibili.com/video/BV1ddhKemEs7/?vd_source=357afc534780d3213e21f2e5fef2cffc)
