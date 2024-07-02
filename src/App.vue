@@ -9,8 +9,7 @@ import { load3dtiles, update3dtiles } from "./tool/load3D";
 const { appContext } = getCurrentInstance();
 const global = appContext.config.globalProperties;
 let viewer;
-Cesium.Ion.defaultAccessToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiNGNjMTg5Zi02ZjBkLTQyOGItOWUzMS1iYmU0OTdjMWJlZTUiLCJpZCI6MTk2NDAxLCJpYXQiOjE3MDgzMzI4MzJ9.Ig6iAuXmLNdwcJlSmvSHhaR6xsmKCRhAkEkjAo7PYPM";
+Cesium.Ion.defaultAccessToken = "your token";
 
 onMounted(() => {
   // viewer是操控地图api的开始

@@ -1,5 +1,5 @@
 /**
- * @descripion:
+ * @descripion: 弹框
  * @param {Viewer} viewer
  * @param {Cartesian2} position
  * @param {Object} houseInfo

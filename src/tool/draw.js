@@ -1,3 +1,13 @@
+/**
+ * @FilePath     : /Floor division/src/tool/draw.js
+ * @Description  : 绘制工具
+ * @Author       : Harvey-Andrew
+ * @Version      : 0.0.1
+ * @LastEditors  : Harvey-Andrew 
+ * @LastEditTime : 2024-07-02 09:02:33
+ * @Copyright © 2024 by Harvey-Andrew.
+ */
+
 import * as Cesium from "cesium";
 let viewer
 //方式

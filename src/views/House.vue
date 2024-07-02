@@ -77,6 +77,7 @@ const initHandler = () => {
   let handler = new Cesium.ScreenSpaceEventHandler(global.$viewer.scene.canvas);
   handler.setInputAction((event) => {
     pick = global.$viewer.scene.pick(event.position);
+    // console.log(pick);
     let position = global.$viewer.scene.pickPosition(event.position);
     // console.log(pick.primitive.getGeometryInstanceAttributes(pick.id));
     if (position && pick && pick.id) {
@@ -89,6 +90,7 @@ const initHandler = () => {
         );
       }
       const attributes = pick.primitive.getGeometryInstanceAttributes(pick.id);
+      console.log(attributes);
       attributes.color = Cesium.ColorGeometryInstanceAttribute.toValue(
         Cesium.Color.YELLOW.withAlpha(0.88)
       );
@@ -97,6 +99,7 @@ const initHandler = () => {
         if (res.code == 200) {
           // console.log(res);
           let houseInfo = res.data;
+          //注意删除之前的对话框
           bubble && bubble.windowClose();
           bubble = new Bubble({
             position,
@@ -320,5 +323,8 @@ $color: #2194e0;
       transition: all 0.5s ease-in-out;
     }
   }
+}
+.el-card {
+  border: none;
 }
 </style>

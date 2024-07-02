@@ -4,7 +4,7 @@
  * @Author       : Harvey-Andrew
  * @Version      : 0.0.1
  * @LastEditors  : Harvey-Andrew 
- * @LastEditTime : 2024-07-01 23:05:56
+ * @LastEditTime : 2024-07-02 10:43:29
  * Copyright © 2024 by Harvey-Andrew.
 -->
 
@@ -13,7 +13,7 @@
     <template #header>
       <div class="card-header">
         <span style="font-weight: 600; font-size: 18px">楼房分户</span>
-        <span @click="reset">
+        <span @click="reset" class="reset">
           <Refresh style="width: 25px; float: right; cursor: pointer" />
         </span>
       </div>
@@ -50,9 +50,17 @@
           <el-input v-model="inputArr[0]" />
           <el-input v-model="inputArr[1]" />
           <el-input style="width: 40%" v-model="inputArr[2]" />
-          <el-input v-show="data.active == 1" style="width: 40%" v-model="inputArr[3]" />
+          <el-input
+            v-show="data.active == 1"
+            style="width: 40%"
+            v-model="inputArr[3]"
+          />
         </div>
-        <div class="textInput" v-for="(item, index) in data.unitArr" :key="index">
+        <div
+          class="textInput"
+          v-for="(item, index) in data.unitArr"
+          :key="index"
+        >
           <el-input v-model="item[0]" disabled />
           <el-input v-model="data.buildName" />
           <el-input style="width: 40%" v-model="item[1]" />
@@ -63,21 +71,17 @@
           />
         </div>
         <div v-show="data.heightArr.length == 3" class="pointList">
-          最低点：<el-input v-model="data.heightArr[0]"></el-input> 分割点：<el-input
-            v-model="data.heightArr[1]"
-          ></el-input>
+          最低点：<el-input v-model="data.heightArr[0]"></el-input>
+          分割点：<el-input v-model="data.heightArr[1]"></el-input>
           最高点：<el-input v-model="data.heightArr[2]"></el-input>
         </div>
-        <button @click="toSetInfo" class="float-left mt-2 other-btn" type="success">
+        <button
+          @click="toSetInfo"
+          class="float-left mt-2 other-btn"
+          type="success"
+        >
           查看信息
         </button>
-        <!-- <el-button
-          type="info"
-          v-if="data.active < 2"
-          @click="next"
-          class="m-3 float-right"
-          >下一步</el-button
-        > -->
         <button
           class="float-right btn btn--stripe m-3"
           v-if="data.active < 2"
@@ -85,7 +89,12 @@
         >
           下一步
         </button>
-        <button type="success" v-else @click="toLayer" class="m-3 float-right other-btn">
+        <button
+          type="success"
+          v-else
+          @click="toLayer"
+          class="m-3 float-right other-btn"
+        >
           楼层分层
         </button>
         <button
@@ -103,7 +112,12 @@
 <script setup>
 import * as Cesium from "cesium";
 import { reactive, getCurrentInstance, ref, onUnmounted } from "vue";
-import { FullScreen, Scissor, Histogram, Refresh } from "@element-plus/icons-vue";
+import {
+  FullScreen,
+  Scissor,
+  Histogram,
+  Refresh,
+} from "@element-plus/icons-vue";
 import { toDraw, endDraw } from "@/tool/draw";
 import { ElMessage } from "element-plus";
 import * as turf from "@turf/turf";
@@ -169,7 +183,8 @@ const toLayer = () => {
   }
 
   global.$viewer.entities.removeAll();
-  let itemHeight = (data.heightArr[2] - data.heightArr[1]) / (data.floorNum - 1);
+  let itemHeight =
+    (data.heightArr[2] - data.heightArr[1]) / (data.floorNum - 1);
   houseList.length &&
     houseList.forEach((item) => {
       global.$viewer.scene.primitives.remove(item);
@@ -231,9 +246,11 @@ const drawPoint = () => {
 
   toDraw(global.$viewer, "point", (res) => {
     // console.log(res.position._value);
+    // 收集高度
     let height = Cesium.Cartographic.fromCartesian(res.position._value).height;
     // console.log(height);
     data.heightArr.push(height);
+    // 收集到三个点后，结束绘制
     if (data.heightArr.length == 3) {
       data.heightArr.sort((a, b) => a - b);
       ElMessage.success("绘制成功！");
@@ -248,7 +265,9 @@ const drawLine = () => {
   ElMessage.info("请绘制图形，右键结束绘制");
   global.$viewer.entities.removeAll();
   global.$viewer.entities.add(polygonEntity);
-  data.unitArr = [[polygonGeojson.geometry.coordinates.toString(), 1, polygonEntity]];
+  data.unitArr = [
+    [polygonGeojson.geometry.coordinates.toString(), 1, polygonEntity],
+  ];
   toDraw(global.$viewer, "line", (res) => {
     // console.log(res.polyline.positions._value);
     // 获得笛卡尔坐标
@@ -329,6 +348,27 @@ const drawPolygon = () => {
     polygonGeojson = turf.polygon([arr]);
     // console.log(polygonGeojson);
     data.unitArr.push([polygonGeojson.geometry.coordinates.toString(), 1, res]);
+
+    // 对比包裹前后的楼房分层情况
+    // res.polygon.height = 20;
+    // res.polygon.extrudedHeight = 40;
+
+    // let primitive = new Cesium.ClassificationPrimitive({
+    //   geometryInstances: new Cesium.GeometryInstance({
+    //     geometry: new Cesium.PolygonGeometry({
+    //       polygonHierarchy: new Cesium.PolygonHierarchy(car3_ps),
+    //       height: 45,
+    //       extrudedHeight: 70,
+    //     }),
+    //     attributes: {
+    //       color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+    //         Cesium.Color.fromRandom({ alpha: 0.3 }) //颜色
+    //       ),
+    //     },
+    //   }),
+    //   classificationType: Cesium.ClassificationType.CESIUM_3D_TILE,
+    // });
+    // global.$viewer.scene.primitives.add(primitive);
   });
 };
 // 闪烁
@@ -386,8 +426,8 @@ const toAddHouse = () => {
   }).then((res) => {
     if (res.code == 200) {
       ElMessage.success("提交成功");
+      console.log(res);
       reset();
-
       $router.push("/setInfo");
     }
   });
@@ -465,7 +505,9 @@ onUnmounted(() => {
 .el-step__title.is-wait {
   color: #666;
 }
-
+.el-card {
+  border: none;
+}
 $color-gray: #666;
 $color-black: #000;
 $stripe-height: 7px;
@@ -619,5 +661,8 @@ $color2: #66df75;
       transition: all 0.5s ease-in-out;
     }
   }
+}
+.reset:hover {
+  color: #2194e0;
 }
 </style>

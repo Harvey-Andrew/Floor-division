@@ -281,9 +281,8 @@ const tableClick = (row) => {
 // 视角切换
 // 可以在楼层分割时做一个视角切换的点 就不用寻找中心点了
 const changBuild = (item) => {
-  data.query.pageIndex = 1;
   pickPrimitive && global.$viewer.scene.primitives.remove(pickPrimitive);
-
+  pickPrimitive=null
   data.pickBuild = item.name;
   const center = turf.center(item.polygon);
   // console.log(center);
@@ -291,6 +290,7 @@ const changBuild = (item) => {
     destination: Cesium.Cartesian3.fromDegrees(...center.geometry.coordinates, 200),
   });
   data.query.id = item.id;
+  data.query.pageIndex = 1;
   getHouseData();
 };
 
@@ -513,5 +513,8 @@ $color: #2194e0;
     color: black;
   }
 
+}
+.el-card {
+  border: none;
 }
 </style
