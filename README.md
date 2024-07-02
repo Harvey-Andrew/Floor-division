@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 个人博客：[CSDN博客-满分观察网友z](https://douglas.blog.csdn.net)
 
 演示地址：[哔哩哔哩-满分观察网友z](https://www.bilibili.com/video/BV1ddhKemEs7/?vd_source=357afc534780d3213e21f2e5fef2cffc)
@@ -14,6 +15,21 @@
 
 需要将地图变为全局变量，其他组件也可以使用。
 
+=======
+个人博客：https://douglas.blog.csdn.net
+
+[TOC]
+
+这是一个涉及Cesium.js（一个用于Web的3D地球和地图的JavaScript库）和前后端交互的楼房分户案例。该案例的主要功能包括区域绘制、户型切分、楼房分层、编辑房户信息和查看房户信息等等。
+# 1. 地图初始化
+
+加载 3D 瓦片到地图上。
+
+![image-20240701194950727](https://gitee.com/dongxiaogit/image2/raw/master/image/image-20240701194950727.png)
+
+需要将地图变为全局变量，其他组件也可以使用。
+
+>>>>>>> 228f844a7ad8dfbf2fba2caa1a622c1b96984baf
 ```js
 const { appContext } = getCurrentInstance();
 const global = appContext.config.globalProperties;
