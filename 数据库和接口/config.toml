@@ -1,0 +1,11 @@
+appName = "smartCity"
+ginPort = ":8090"
+sessionKey = "smartCity"
+
+[mysql]
+host = "127.0.0.1"
+name = "smartcity"
+password = "123456"
+port = 3306
+tablePrefix = ""
+user = "root"
